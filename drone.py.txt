@@ -1,0 +1,17 @@
+class Drone:
+    def __init__(self, isim):
+        self.isim = isim
+        self.batarya_gecmisi = []
+
+    def batarya_kaydet(self, deger):
+        self.batarya_gecmisi.append(deger)
+
+    def son_batarya(self):
+        print(f"{self.isim} - Son batarya: %{self.batarya_gecmisi[-1]}")
+
+
+drone1 = Drone("Sahin")
+drone1.batarya_kaydet(100)
+drone1.batarya_kaydet(85)
+drone1.batarya_kaydet(70)
+drone1.son_batarya()
