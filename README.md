@@ -1,17 +1,29 @@
 ## MNIST El Yazısı Rakam Sınıflandırıcı
 
-PyTorch'a giriş projem. Basit bir sinir ağı (fully connected neural network) ile
-MNIST veri setindeki el yazısı rakamları (0-9) sınıflandırıyor.
+PyTorch'a giriş projem. İki farklı model mimarisini (basit sinir ağı ve CNN)
+karşılaştırarak, konvolüsyonel katmanların görüntü işlemedeki etkisini inceledim.
 
-**Sonuç:** Test verisi üzerinde %96.67 doğruluk.
+### Sonuçlar
 
-**Kullanılan yöntemler:**
+| Model | Test Doğruluğu |
+|---|---|
+| Basit Sinir Ağı (Fully Connected) | %96.67 |
+| CNN (Convolutional Neural Network) | **%98.72** |
+
+**Gözlem:** CNN, konvolüsyon katmanları sayesinde piksellerin konumsal
+(spatial) ilişkisini koruyabildiği için, basit modele göre daha yüksek
+doğruluk ve daha istikrarlı bir eğitim süreci (kayıp değerleri daha düzenli
+azaldı) gösterdi.
+
+### Kullanılan yöntemler
 - PyTorch tensor ve otomatik gradyan hesaplama (autograd)
-- `nn.Sequential` ile basit bir sinir ağı mimarisi (Flatten → Linear → ReLU → Linear)
+- `nn.Sequential` ile iki farklı model mimarisi
+- Conv2d, MaxPool2d katmanları (CNN mimarisi)
 - Adam optimizer ve CrossEntropyLoss kayıp fonksiyonu
 - Eğitim/test verisi ayrımı ile gerçek performans ölçümü
 
-**Neden yaptım:** PyTorch'un temel kavramlarını (tensor, gradyan, epoch, eğitim döngüsü)
-uygulamalı olarak öğrenmek için. Bu, ileride görüntü işleme ve otonom sistemler
-alanında yapacağım projeler için bir başlangıç noktası.
-
+**Neden yaptım:** PyTorch'un temel kavramlarını (tensor, gradyan, epoch) ve
+görüntü işlemede neden CNN mimarisinin tercih edildiğini uygulamalı olarak
+öğrenmek için. Bu, ileride görüntü işleme ve otonom sistemler alanında
+yapacağım İHA/drone projeleri için bir başlangıç noktası — YOLO gibi
+nesne tespiti modelleri de CNN temelli çalışıyor.
