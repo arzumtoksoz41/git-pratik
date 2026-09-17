@@ -46,3 +46,28 @@ gerçek zamanlı sayılabilecek bir sürede.
 
 **Sıradaki hedefim:** Kendi etiketlediğim İHA/drone görüntü verisiyle,
 hazır bir model kullanmak yerine kendi YOLO modelimi sıfırdan eğitmek.
+## YOLO Fine-Tuning Denemesi (COCO128)
+
+Hazır bir YOLOv8n modelini, küçük bir örnek veri seti (COCO128, 128 resim,
+80 farklı nesne kategorisi) ile 5 epoch boyunca fine-tune ettim. Bu, ileride
+kendi etiketlediğim İHA/drone verisiyle yapacağım eğitim sürecinin bir provasıydı.
+
+![Eğitim Sonuçları](yolo_egitim_sonuclari.png)
+
+**Genel sonuçlar (5 epoch sonunda):**
+- Precision: 0.674
+- Recall: 0.617
+- mAP50: 0.667
+- mAP50-95: 0.502
+
+**Önemli gözlem:** Sınıf bazlı performans, o sınıftaki örnek sayısına doğrudan
+bağlıydı — örneğin "person" sınıfı (254 örnek) yüksek performans gösterirken,
+"car" sınıfı (sadece 46 örnek) düşük kaldı (Precision: 0.482, Recall: 0.239).
+Bu, kendi İHA veri setimi hazırlarken her kategoriden yeterli örnek
+etiketlemem gerektiğini gösteren değerli bir ders oldu.
+
+**Öğrendiklerim:**
+- Fine-tuning: hazır, önceden eğitilmiş bir modeli az veriyle "ince ayar" yapmak
+- Precision/Recall/mAP değerlerinin eğitim sürecinde nasıl geliştiğini okumak
+- box_loss, cls_loss, dfl_loss metriklerinin ne anlama geldiği
+- Az örnekli kategorilerin model performansını nasıl olumsuz etkilediği
