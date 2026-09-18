@@ -71,3 +71,20 @@ etiketlemem gerektiğini gösteren değerli bir ders oldu.
 - Precision/Recall/mAP değerlerinin eğitim sürecinde nasıl geliştiğini okumak
 - box_loss, cls_loss, dfl_loss metriklerinin ne anlama geldiği
 - Az örnekli kategorilerin model performansını nasıl olumsuz etkilediği
+## Model Deployment: ONNX Dönüşümü
+
+Jetson Nano gibi kısıtlı donanımlarda çalıştırmaya hazırlık olarak,
+PyTorch ile eğitilmiş bir CNN modelini ONNX (Open Neural Network Exchange)
+formatına dönüştürdüm.
+
+**Neden ONNX:** PyTorch'a özel bir format yerine, platform bağımsız,
+farklı donanımlarda optimize edilmiş çıkarım (inference) yapılmasını
+sağlayan evrensel bir format kullanmak.
+
+**Süreç:**
+1. Modeli `eval()` moduna al (eğitim değil, kullanım modu)
+2. Örnek bir girdi ile `torch.onnx.export()` çağır
+3. Model, ONNX grafiğine çevrilip optimize edilir
+
+**Sıradaki adım:** Jetson Nano üzerinde, bu ONNX modelini NVIDIA'nın
+TensorRT aracıyla daha da optimize ederek gerçek zamanlı çalıştırmak.
